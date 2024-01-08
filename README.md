@@ -6,14 +6,17 @@ animals during the transfer process.
 Features:
 Implement a mechanism for zookeepers to accommodate animals from the input 
 JSON to the new zoo.
+
 o The system should take into account the list of animals provided
 and the number of new enclosures available in the new zoo. All 
 animals should fit.
+
 o Animals should be transferred while adhering to the following rules:
+
 	▪ Vegetarian animals can be placed together in the same 
-	enclosure.
+	enclosure. 
 	▪ Animals of the same species should not be separated and 
-	should be assigned to the same enclosure.
+	should be assigned to the same enclosure. 
 	▪ Meat-eating animals of different species should preferably not 
 	be grouped together in the same enclosure. However, if 
 	necessary due to limited enclosures, only two different species 
@@ -23,10 +26,14 @@ o Animals should be transferred while adhering to the following rules:
 	    Only assign if there are less than 2 species in the enclosure or if enclosure is small allow only 1 species and only if enclosures are empty or there is no herbivore
 					
 Input:
+
 JSON (animals.json) full of animals with their specifications (food, 
 species...)
+
 JSON (enclosures.json) full of enclosures with their specifications 
 (inside/outside, size, objects...)
+
 Output:
+
 Database filled with all the animals from the JSON. Each animal should 
 have an enclosure assigned to him.
