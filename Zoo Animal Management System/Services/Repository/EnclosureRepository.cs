@@ -30,6 +30,10 @@ namespace Zoo_Animal_Management_System.Services.Repository
             _context.Enclosures.AddRange(enclosures);
             return await UpdateAndCheckIfAnyRowsAffected();
         }
+        public async Task<List<Enclosure>> GetAllEnclosures()
+        {
+            return await _context.Enclosures.Include(enclosure => enclosure.Animals).ToListAsync();
+        }
 
     }
 }

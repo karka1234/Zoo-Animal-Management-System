@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Zoo_Animal_Management_System.Database;
 
@@ -11,9 +12,11 @@ using Zoo_Animal_Management_System.Database;
 namespace Zoo_Animal_Management_System.Migrations
 {
     [DbContext(typeof(ZooDbContext))]
-    partial class ZooDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240108174057_changedTypeOfAnimalFoodAndChangedEnumsType")]
+    partial class changedTypeOfAnimalFoodAndChangedEnumsType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

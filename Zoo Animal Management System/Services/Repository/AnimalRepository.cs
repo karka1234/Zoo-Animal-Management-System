@@ -35,9 +35,26 @@ namespace Zoo_Animal_Management_System.Services.Repository
             return await UpdateAndCheckIfAnyRowsAffected();
         }
 
-        public async Task<List<Animal>> GetAllAnimals()///and wifouth anclosures.. neet to make maybe
+        public async Task<List<Animal>> GetAllAnimalsWifouthEnclosure()
+        {
+            return await _context.Animals.Include(animal => animal.Enclosure).Where(animal => animal.EnclosureId == null).ToListAsync();
+        }
+
+        public async Task<List<Animal>> GetAllAnimals()
         {
             return await _context.Animals.Include(animal => animal.Enclosure).ToListAsync();
         }
+
+        public async Task<bool> DeleteAnimal(Animal animal)
+        {
+            _context.Animals.Remove(animal);
+            return await UpdateAndCheckIfAnyRowsAffected();
+        }
+
+        public async Task<bool> UpdateAnimals()
+        {
+            return await UpdateAndCheckIfAnyRowsAffected();
+        }
+
     }
 }

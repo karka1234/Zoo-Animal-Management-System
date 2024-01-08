@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Text.Json.Serialization;
 using Zoo_Animal_Management_System.Database;
 using Zoo_Animal_Management_System.Services;
 using Zoo_Animal_Management_System.Services.Adapters;
@@ -21,7 +22,12 @@ var connString = builder.Configuration.GetConnectionString("Database");
 builder.Services.AddDbContext<ZooDbContext>(o => o.UseSqlServer(connString));
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+}); 
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

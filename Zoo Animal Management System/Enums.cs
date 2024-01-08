@@ -14,5 +14,12 @@
             Outside,
             Inside
         }
+
+        public enum AnimalFood
+        {
+            Carnivore,
+            Herbivore
+        }
+
     }
 }

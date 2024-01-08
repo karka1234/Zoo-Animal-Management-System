@@ -8,5 +8,10 @@ namespace Zoo_Animal_Management_System.Services
     {
         Task<IActionResult> UploadAnimals(AnimalCollectionDto animalsFromFile);
         Task<IActionResult> UploadEnclosure(EnclosureCollectionDto enclosuresFromFile);
+        Task<IActionResult> FillEnclosures();
+        Task<IActionResult> GetNotAssignedAnimalsInfo();
+        Task<IActionResult> AssignOrChangeAnimalEnclosure(Guid animalId, Guid enclosureId);
+        Task<IActionResult> DeleteAnimal(Guid animalId);
+        Task<IActionResult> RemoveAnimalFromEnclosure(Guid animalId);
     }
 }

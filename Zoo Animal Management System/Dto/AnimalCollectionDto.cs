@@ -2,6 +2,6 @@
 {
     public class AnimalCollectionDto
     {
-        public List<AnimalDto> Animals { get; set; }        = new List<AnimalDto>();
+        public List<AnimalDto> Animals { get; set; } = new List<AnimalDto>();
     }
 }

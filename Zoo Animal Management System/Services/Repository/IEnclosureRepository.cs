@@ -7,5 +7,6 @@ namespace Zoo_Animal_Management_System.Services.Repository
         Task<bool> AddEnclosure(Enclosure enclosure);
         Task<bool> AddEnclosureList(List<Enclosure> enclosures);
         Task<Enclosure> GetEnclosureById(Guid enclosureId);
+        Task<List<Enclosure>> GetAllEnclosures();
     }
 }
