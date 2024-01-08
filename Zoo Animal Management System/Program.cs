@@ -1,10 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using Zoo_Animal_Management_System.Database;
+using Zoo_Animal_Management_System.Services;
+using Zoo_Animal_Management_System.Services.Adapters;
+using Zoo_Animal_Management_System.Services.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<IAnimalAdapter, AnimalAdapter>();
+builder.Services.AddScoped<IEnclosureAdapter, EnclosureAdapter>();
+builder.Services.AddScoped<IAnimalDistributionService, AnimalDistributionService>();
+builder.Services.AddScoped<IAnimalRepository, AnimalRepository>();
+builder.Services.AddScoped<IEnclosureRepository, EnclosureRepository>();
+
 
 
 // Database realated
