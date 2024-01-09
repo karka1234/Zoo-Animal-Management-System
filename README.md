@@ -37,3 +37,13 @@ Output:
 
 Database filled with all the animals from the JSON. Each animal should 
 have an enclosure assigned to him.
+
+
+Firstly You need  to upload files using:
+   	/api/ZooAnimalFileUpload/uploadEnclosures - upload enclosures.json
+   	/api/ZooAnimalFileUpload/uploadAnimals - upload animals.json
+Secondly you can use:
+	/api/ZooAnimalManager/FillEnclosures - to automatically assign animals to enclosures based on rules.
+Other functions also works.
+
+![image](https://github.com/karka1234/Zoo-Animal-Management-System/assets/5184302/33ebea5c-f1a0-4ac7-98e5-7f735a9f756c)
