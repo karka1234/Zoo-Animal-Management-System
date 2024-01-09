@@ -21,5 +21,10 @@
             Herbivore
         }
 
+        public enum  AnimalEnclosure
+        {
+            animal,
+            enclosure
+        }
     }
 }

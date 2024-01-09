@@ -14,6 +14,7 @@ builder.Services.AddScoped<IEnclosureAdapter, EnclosureAdapter>();
 builder.Services.AddScoped<IAnimalDistributionService, AnimalDistributionService>();
 builder.Services.AddScoped<IAnimalRepository, AnimalRepository>();
 builder.Services.AddScoped<IEnclosureRepository, EnclosureRepository>();
+builder.Services.AddScoped<IZooAnimalFileUploaderService, ZooAnimalFileUploaderService>();
 
 
 

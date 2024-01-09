@@ -34,6 +34,11 @@ namespace Zoo_Animal_Management_System.Services.Repository
         {
             return await _context.Enclosures.Include(enclosure => enclosure.Animals).ToListAsync();
         }
+        public async Task<bool> DeleteEnclosure(Enclosure enclosure)
+        {
+            _context.Enclosures.Remove(enclosure);
+            return await UpdateAndCheckIfAnyRowsAffected();
+        }
 
     }
 }

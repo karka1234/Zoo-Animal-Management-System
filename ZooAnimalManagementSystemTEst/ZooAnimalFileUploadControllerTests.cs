@@ -1,17 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Moq;
+using Zoo_Animal_Management_System.Controllers;
+using Zoo_Animal_Management_System.Requests;
+using Zoo_Animal_Management_System.Services;
 
 namespace ZooAnimalManagementSystemTEst
 {
     public class ZooAnimalFileUploadControllerTests
     {
-        [Fact]
-        public void Test1()
-        {
+        private readonly ZooAnimalFileUploadController _controller;
+        private readonly Mock<IZooAnimalFileUploaderService> _fileUploaderServiceMock;
 
+        public ZooAnimalFileUploadControllerTests()
+        {
+            _fileUploaderServiceMock = new Mock<IZooAnimalFileUploaderService>();
+            _controller = new ZooAnimalFileUploadController(_fileUploaderServiceMock.Object);
         }
+
+
+
+
+
     }
 }
