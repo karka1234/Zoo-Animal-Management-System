@@ -38,6 +38,11 @@ namespace Zoo_Animal_Management_System.Services
             if (!file.FileName.ToLower().StartsWith(expectedFileName))
                 return new BadRequestObjectResult($"Incorrect file name, should start with '{expectedFileName}'.");
 
+            return await ReadCheckAndActionRequestFile<TDto>(file, expectedFileName);
+        }
+
+        private async Task<IActionResult> ReadCheckAndActionRequestFile<TDto>(IFormFile file, string expectedFileName)
+        {
             try
             {
                 using (var reader = new StreamReader(file.OpenReadStream()))

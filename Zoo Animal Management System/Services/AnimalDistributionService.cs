@@ -17,33 +17,31 @@ namespace Zoo_Animal_Management_System.Services
             _enclosureRepository = enclosureRepository;
             _logger = logger;
         }
-
-        public async Task<IActionResult> RemoveAnimalFromEnclosure(Guid animalId)
+        public async Task<IActionResult> FillEnclosures()
         {
-            Animal animal = await _animalRepository.GetAnimalById(animalId);
-            if (animal == null)
-            {
-                return new BadRequestObjectResult("Theres no animal with such id");
-            }
+            List<Animal> animals = await _animalRepository.GetAllAnimalsWifouthEnclosure();
+            List<Enclosure> enclosures = await _enclosureRepository.GetAllEnclosures();
+            if (!animals.Any() && !enclosures.Any())
+                return new BadRequestObjectResult("Theres no assigned animals or any of enclosures");
 
-            animal.Enclosure = null;
+            List<Animal> herbivoreGroups = animals.Where(a => a.Food == AnimalFood.Herbivore).ToList();
+            AssignHerbivoresToEnclosures(herbivoreGroups, enclosures);
+
+            List<Animal> carnivoreGroups = animals.Where(a => a.Food == AnimalFood.Carnivore).ToList();
+            AssignCarnivoresToEnclosures(carnivoreGroups, enclosures);
+
 
             bool succesfull = await _animalRepository.UpdateAnimals();
-            return ReturnMessageOfUpdate(succesfull, "Animal was removed from enclosure sucessfully", "Animal still exists in enclosure");
+            return ReturnMessageOfUpdate(succesfull, "Animals successfully assigned to enclosures.", "Animals was not assigned to enclosures");
         }
-
-        public async Task<IActionResult> DeleteAnimal(Guid animalId)
+        public async Task<IActionResult> GetNotAssignedAnimalsInfo()
         {
-            Animal animal = await _animalRepository.GetAnimalById(animalId);
-            if (animal == null)
-            {
-                return new BadRequestObjectResult("Theres no animal with such id");
-            }
-
-            bool succesfull = await _animalRepository.DeleteAnimal(animal);
-            return ReturnMessageOfUpdate(succesfull, "Animal was deleted sucessfully", "Animal still exists");
+            List<Animal> animals = await _animalRepository.GetAllAnimalsWifouthEnclosure();
+            if (animals.Count != 0)
+                return new OkObjectResult(animals);
+            else
+                return new BadRequestObjectResult("Theres no free animals in database");
         }
-
         public async Task<IActionResult> AssignOrChangeAnimalEnclosure(Guid animalId, Guid enclosureId)
         {
             Animal animal = await _animalRepository.GetAnimalById(animalId);
@@ -62,31 +60,38 @@ namespace Zoo_Animal_Management_System.Services
             bool succesfull = await _animalRepository.UpdateAnimals();
             return ReturnMessageOfUpdate(succesfull, "Animal uploaded sucessfully", "Animal enclosure not updated");
         }
-        public async Task<IActionResult> GetNotAssignedAnimalsInfo()
+
+        public async Task<IActionResult> DeleteAnimal(Guid animalId)
         {
-            List<Animal> animals = await _animalRepository.GetAllAnimalsWifouthEnclosure();
-            if (animals.Count != 0)
-                return new OkObjectResult(animals);
-            else
-                return new BadRequestObjectResult("Theres no free animals in database");
+            Animal animal = await _animalRepository.GetAnimalById(animalId);
+            if (animal == null)
+            {
+                return new BadRequestObjectResult("Theres no animal with such id");
+            }
+
+            bool succesfull = await _animalRepository.DeleteAnimal(animal);
+            return ReturnMessageOfUpdate(succesfull, "Animal was deleted sucessfully", "Animal still exists");
         }
-        public async Task<IActionResult> FillEnclosures()
+
+
+        public async Task<IActionResult> RemoveAnimalFromEnclosure(Guid animalId)
         {
-            List<Animal> animals = await _animalRepository.GetAllAnimalsWifouthEnclosure();
-            List<Enclosure> enclosures = await _enclosureRepository.GetAllEnclosures();
-            if (!animals.Any() && !enclosures.Any())
-                return new BadRequestObjectResult("Theres no assigned animals or any of enclosures");
+            Animal animal = await _animalRepository.GetAnimalById(animalId);
+            if (animal == null)
+            {
+                return new BadRequestObjectResult("Theres no animal with such id");
+            }
 
-            List<Animal> herbivoreGroups = animals.Where(a => a.Food == AnimalFood.Herbivore).ToList();
-            AssignHerbivoresToEnclosures(herbivoreGroups, enclosures);
-
-            List<Animal> carnivoreGroups = animals.Where(a => a.Food == AnimalFood.Carnivore).ToList();
-            AssignCarnivoresToEnclosures(carnivoreGroups, enclosures);
-
+            animal.Enclosure = null;
 
             bool succesfull = await _animalRepository.UpdateAnimals();
-            return ReturnMessageOfUpdate(succesfull, "Animals successfully assigned to enclosures.", "Animals was not assigned to enclosures");
+            return ReturnMessageOfUpdate(succesfull, "Animal was removed from enclosure sucessfully", "Animal still exists in enclosure");
         }
+
+
+
+
+
         private void AssignHerbivoresToEnclosures(List<Animal> herbivores, List<Enclosure> enclosures)
         {
             // Only assign if enclosure size is Huge and theres is less than 10 animals or if large and theres less than 8 animals
